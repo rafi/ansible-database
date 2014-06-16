@@ -1,0 +1,13 @@
+---
+
+- name: Install Postgresql server and client
+  apt: pkg=postgresql-{{ postgresql.version }} state=installed update-cache=yes
+  tags: packages
+
+- name: Install PostgreSQL config file
+  template: src=postgresql.conf.j2
+            dest=/etc/postgresql/{{ postgresql.version }}/main/postgresql.conf
+            owner={{ postgresql.user }} group={{ postgresql.group }}
+  notify: restart and enable postgresql
+  tags: config
+

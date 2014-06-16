@@ -1,0 +1,15 @@
+---
+
+- name: Install Beanstalkd
+  apt: name=beanstalkd state=present
+  notify: restart beanstalkd
+  tags: 
+    - beanstalkd
+    - packages
+
+- name: Beanstalkd enable startup
+  lineinfile: dest=/etc/default/beanstalkd regexp='^#START' line='START=yes'
+  notify: restart beanstalkd
+  tags: 
+    - beanstalkd
+    - config

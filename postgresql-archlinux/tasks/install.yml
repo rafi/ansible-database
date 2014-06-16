@@ -1,0 +1,26 @@
+---
+
+- name: Ensuring Postgresql
+  pacman: name=postgresql
+  tags: packages
+
+- name: Initialize database cluster
+  sudo: yes
+  sudo_user: postgres
+  command: initdb --locale en_US.UTF-8 -E UTF8 -D '/var/lib/postgres/data'
+    creates=/var/lib/postgres/data/PG_VERSION
+  tags: config
+
+- name: Configure PostgreSQL
+  template: src=postgresql.conf.j2
+            dest=/var/lib/postgres/data/postgresql.conf
+            owner={{ postgresql.user }} group={{ postgresql.group }}
+  notify: restart and enable postgresql
+  tags: config
+
+# Needed for apt_repository and postgresql_user
+- name: Ensuring Ansible deps
+  pacman: name={{ item }}
+  with_items: 
+    - python2-psycopg2
+  tags: deps

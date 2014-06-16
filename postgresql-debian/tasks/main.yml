@@ -1,0 +1,17 @@
+---
+
+- include: deps.yml
+  tags:
+    - postgresql
+    - deps
+    - apt
+
+- include: install.yml
+  tags:
+    - postgresql
+    - install
+
+- include: user.yml
+  tags:
+    - postgresql
+    - user

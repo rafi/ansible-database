@@ -1,0 +1,4 @@
+---
+
+- name: restart and enable postgresql
+  service: name=postgresql.service state=restarted enabled=yes

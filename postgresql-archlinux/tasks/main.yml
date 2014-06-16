@@ -1,0 +1,11 @@
+---
+
+- include: install.yml
+  tags: 
+    - postgresql
+    - install
+
+- include: user.yml
+  tags: 
+    - postgresql
+    - user
