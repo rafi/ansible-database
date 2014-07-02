@@ -1,0 +1,10 @@
+---
+
+- name: Install Memcached
+  apt: name=memcached state=installed
+  notify: 
+    - enable memcached
+    - restart memcached
+  tags: 
+    - memcached
+    - packages

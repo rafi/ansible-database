@@ -1,0 +1,17 @@
+---
+
+- name: Install Memcached
+  pacman: name=memcached state=present
+  notify: enable memcached
+  tags: 
+    - memcached
+    - packages
+
+- name: Write Memcached config
+  lineinfile: dest=/usr/lib/systemd/system/memcached.service
+              regexp='^ExecStart'
+              line='ExecStart=/usr/bin/memcached -l 127.0.0.1'
+  notify: restart memcached
+  tags: 
+    - memcached
+    - config
